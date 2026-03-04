@@ -1,0 +1,243 @@
+import { subMonths, format } from 'date-fns'
+import { randomInt, randomFloat } from '../helpers/faker'
+import { daysAgo } from '../helpers/dates'
+import type {
+  KpiMetric,
+  TimeSeriesPoint,
+  RegionDataPoint,
+  DepartmentDataPoint,
+  ReportDefinition,
+  AnalyticsDashboardData,
+} from '@/features/analytics/types'
+
+// Generate 12 months of revenue data
+function generateRevenueTrend(): TimeSeriesPoint[] {
+  let base = 380000
+  return Array.from({ length: 12 }, (_, i) => {
+    const monthsBack = 11 - i
+    const growth = 1 + (Math.random() * 0.08 - 0.02)
+    base = base * growth
+    return {
+      date: format(subMonths(new Date(), monthsBack), 'MMM yyyy'),
+      value: Math.round(base),
+      label: format(subMonths(new Date(), monthsBack), 'MMM'),
+    }
+  })
+}
+
+export const REVENUE_TREND = generateRevenueTrend()
+
+export const KPI_METRICS: KpiMetric[] = [
+  {
+    id: 'kpi_revenue',
+    label: 'Monthly Revenue',
+    value: REVENUE_TREND[11].value,
+    previousValue: REVENUE_TREND[10].value,
+    unit: 'currency',
+    trend: REVENUE_TREND[11].value > REVENUE_TREND[10].value ? 'up' : 'down',
+    changePercent: ((REVENUE_TREND[11].value - REVENUE_TREND[10].value) / REVENUE_TREND[10].value) * 100,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_orders',
+    label: 'Total Orders',
+    value: 2847,
+    previousValue: 2612,
+    unit: 'number',
+    trend: 'up',
+    changePercent: 9.0,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_customers',
+    label: 'Active Customers',
+    value: 1284,
+    previousValue: 1196,
+    unit: 'number',
+    trend: 'up',
+    changePercent: 7.4,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_conversion',
+    label: 'Conversion Rate',
+    value: 3.8,
+    previousValue: 3.5,
+    unit: 'percent',
+    trend: 'up',
+    changePercent: 8.6,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_avg_order',
+    label: 'Avg Order Value',
+    value: 1847,
+    previousValue: 1923,
+    unit: 'currency',
+    trend: 'down',
+    changePercent: -3.9,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_inventory',
+    label: 'Inventory Value',
+    value: 4820000,
+    previousValue: 4650000,
+    unit: 'currency',
+    trend: 'up',
+    changePercent: 3.7,
+    description: 'vs. last month',
+  },
+]
+
+export const SALES_BY_REGION: RegionDataPoint[] = [
+  { region: 'North America', revenue: 1840000, orders: 1240 },
+  { region: 'Europe', revenue: 1120000, orders: 820 },
+  { region: 'Asia Pacific', revenue: 680000, orders: 530 },
+  { region: 'Latin America', revenue: 280000, orders: 190 },
+  { region: 'Middle East', revenue: 160000, orders: 67 },
+]
+
+export const DEPARTMENT_BREAKDOWN: DepartmentDataPoint[] = [
+  { department: 'Engineering', headcount: 45, budget: 3200000 },
+  { department: 'Sales', headcount: 32, budget: 1800000 },
+  { department: 'Marketing', headcount: 18, budget: 950000 },
+  { department: 'Finance', headcount: 12, budget: 620000 },
+  { department: 'Operations', headcount: 28, budget: 1100000 },
+  { department: 'HR', headcount: 8, budget: 380000 },
+]
+
+export const DASHBOARD_DATA: AnalyticsDashboardData = {
+  kpis: KPI_METRICS,
+  revenueTrend: REVENUE_TREND,
+  salesByRegion: SALES_BY_REGION,
+  departmentBreakdown: DEPARTMENT_BREAKDOWN,
+}
+
+export const MOCK_REPORTS: ReportDefinition[] = [
+  {
+    id: 'rpt_001',
+    name: 'Monthly Revenue Summary',
+    category: 'finance',
+    description: 'Revenue breakdown by product category and region for the current month.',
+    columns: [
+      { key: 'date', label: 'Period', type: 'date' },
+      { key: 'category', label: 'Category', type: 'string' },
+      { key: 'region', label: 'Region', type: 'string' },
+      { key: 'revenue', label: 'Revenue', type: 'currency' },
+      { key: 'orders', label: 'Orders', type: 'number' },
+    ],
+    rowCount: 120,
+    lastRunAt: daysAgo(0),
+    createdAt: daysAgo(180),
+  },
+  {
+    id: 'rpt_002',
+    name: 'Sales Pipeline Analysis',
+    category: 'sales',
+    description: 'Opportunity pipeline value and conversion rates by sales rep.',
+    columns: [
+      { key: 'rep', label: 'Sales Rep', type: 'string' },
+      { key: 'stage', label: 'Stage', type: 'status' },
+      { key: 'deals', label: 'Deals', type: 'number' },
+      { key: 'value', label: 'Pipeline Value', type: 'currency' },
+      { key: 'conversionRate', label: 'Conv. Rate', type: 'number' },
+    ],
+    rowCount: 45,
+    lastRunAt: daysAgo(1),
+    createdAt: daysAgo(120),
+  },
+  {
+    id: 'rpt_003',
+    name: 'Inventory Stock Levels',
+    category: 'inventory',
+    description: 'Current stock levels, reorder alerts, and warehouse utilization.',
+    columns: [
+      { key: 'sku', label: 'SKU', type: 'string' },
+      { key: 'name', label: 'Item Name', type: 'string' },
+      { key: 'warehouse', label: 'Warehouse', type: 'string' },
+      { key: 'stock', label: 'Current Stock', type: 'number' },
+      { key: 'status', label: 'Status', type: 'status' },
+    ],
+    rowCount: 200,
+    lastRunAt: daysAgo(0),
+    createdAt: daysAgo(90),
+  },
+  {
+    id: 'rpt_004',
+    name: 'Employee Headcount Report',
+    category: 'hr',
+    description: 'Headcount by department, role, and employment status.',
+    columns: [
+      { key: 'department', label: 'Department', type: 'string' },
+      { key: 'role', label: 'Role', type: 'string' },
+      { key: 'headcount', label: 'Headcount', type: 'number' },
+      { key: 'status', label: 'Status', type: 'status' },
+    ],
+    rowCount: 50,
+    lastRunAt: daysAgo(2),
+    createdAt: daysAgo(60),
+  },
+  {
+    id: 'rpt_005',
+    name: 'Operations Efficiency',
+    category: 'operations',
+    description: 'Operational KPIs including cycle times, error rates, and throughput.',
+    columns: [
+      { key: 'metric', label: 'Metric', type: 'string' },
+      { key: 'value', label: 'Value', type: 'number' },
+      { key: 'target', label: 'Target', type: 'number' },
+      { key: 'trend', label: 'Trend', type: 'string' },
+    ],
+    rowCount: 32,
+    lastRunAt: daysAgo(3),
+    createdAt: daysAgo(45),
+  },
+  {
+    id: 'rpt_006',
+    name: 'Customer Acquisition Report',
+    category: 'sales',
+    description: 'Lead sources, conversion funnels, and CAC by channel.',
+    columns: [
+      { key: 'channel', label: 'Channel', type: 'string' },
+      { key: 'leads', label: 'Leads', type: 'number' },
+      { key: 'qualified', label: 'Qualified', type: 'number' },
+      { key: 'converted', label: 'Converted', type: 'number' },
+      { key: 'cac', label: 'CAC', type: 'currency' },
+    ],
+    rowCount: 60,
+    lastRunAt: daysAgo(4),
+    createdAt: daysAgo(30),
+  },
+  {
+    id: 'rpt_007',
+    name: 'Budget vs Actuals',
+    category: 'finance',
+    description: 'Departmental budget comparisons and variance analysis.',
+    columns: [
+      { key: 'department', label: 'Department', type: 'string' },
+      { key: 'budget', label: 'Budget', type: 'currency' },
+      { key: 'actuals', label: 'Actuals', type: 'currency' },
+      { key: 'variance', label: 'Variance', type: 'currency' },
+    ],
+    rowCount: 28,
+    lastRunAt: daysAgo(5),
+    createdAt: daysAgo(20),
+  },
+  {
+    id: 'rpt_008',
+    name: 'Warehouse Utilization',
+    category: 'operations',
+    description: 'Space utilization, throughput, and cost per unit by facility.',
+    columns: [
+      { key: 'warehouse', label: 'Warehouse', type: 'string' },
+      { key: 'capacity', label: 'Capacity', type: 'number' },
+      { key: 'utilized', label: 'Utilized', type: 'number' },
+      { key: 'utilization', label: 'Utilization %', type: 'number' },
+      { key: 'costPerUnit', label: 'Cost/Unit', type: 'currency' },
+    ],
+    rowCount: 12,
+    lastRunAt: daysAgo(1),
+    createdAt: daysAgo(15),
+  },
+]
