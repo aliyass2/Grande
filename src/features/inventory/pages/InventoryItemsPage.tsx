@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react'
+import { useIsDark } from '@/lib/useTheme'
 import { useNavigate } from 'react-router-dom'
 import { AgGridReact } from 'ag-grid-react'
 import type { ColDef, ICellRendererParams, CellStyle } from 'ag-grid-community'
+import { themeAlpine, colorSchemeDark } from 'ag-grid-community'
 import { Package, Download } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { FilterBar } from '@/components/FilterBar'
@@ -18,6 +20,7 @@ import { toast } from 'sonner'
 const CATEGORIES = ['Electronics', 'Hardware', 'Software', 'Accessories', 'Office Supplies', 'Safety Equipment']
 
 export default function InventoryItemsPage() {
+  const isDark = useIsDark()
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
@@ -153,8 +156,9 @@ export default function InventoryItemsPage() {
         }
       />
 
-      <div className="flex-1 ag-theme-alpine" style={{ minHeight: 400 }}>
+      <div className="flex-1" style={{ minHeight: 400 }}>
         <AgGridReact
+          theme={isDark ? themeAlpine.withPart(colorSchemeDark) : themeAlpine}
           rowData={data?.data ?? []}
           columnDefs={colDefs}
           defaultColDef={{ resizable: true, sortable: true, filter: true }}

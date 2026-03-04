@@ -8,14 +8,14 @@ import { useRoles } from '../hooks/useUsers'
 import type { Permission } from '../types'
 
 const RESOURCE_COLORS: Record<string, string> = {
-  users: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-  roles: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-  inventory: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-  crm: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
+  users: 'bg-blue-600 text-white',
+  roles: 'bg-purple-600 text-white',
+  inventory: 'bg-emerald-600 text-white',
+  crm: 'bg-orange-500 text-white',
 }
 
 function PermissionTag({ perm }: { perm: Permission }) {
-  const color = RESOURCE_COLORS[perm.resource] ?? 'bg-gray-100 text-gray-800'
+  const color = RESOURCE_COLORS[perm.resource] ?? 'bg-slate-600 text-white'
   return (
     <span className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium ${color}`}>
       {perm.label}
