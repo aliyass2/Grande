@@ -1,6 +1,6 @@
 import { apiFetch, buildQS } from '@/services/http'
 import type { PaginatedResponse, ListParams } from '@/types/common'
-import type { User, Role, AuditLog } from '../types'
+import type { User, Role, Permission, AuditLog } from '../types'
 
 export const userService = {
   list: (params?: ListParams) =>
@@ -28,6 +28,20 @@ export const userService = {
 export const roleService = {
   list: () => apiFetch<Role[]>('/api/roles'),
   getById: (id: string) => apiFetch<Role>(`/api/roles/${id}`),
+  create: (data: Omit<Role, 'id' | 'userCount' | 'createdAt'>) =>
+    apiFetch<Role>('/api/roles', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+}
+
+export const permissionService = {
+  list: () => apiFetch<Permission[]>('/api/permissions'),
+  create: (data: Omit<Permission, 'id'>) =>
+    apiFetch<Permission>('/api/permissions', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
 }
 
 export const auditService = {

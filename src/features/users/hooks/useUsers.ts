@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { userService, roleService, auditService } from '../services/userService'
+import { userService, roleService, permissionService, auditService } from '../services/userService'
 import type { ListParams } from '@/types/common'
 import { toast } from 'sonner'
 
@@ -22,6 +22,13 @@ export function useRoles() {
   return useQuery({
     queryKey: ['roles'],
     queryFn: () => roleService.list(),
+  })
+}
+
+export function usePermissions() {
+  return useQuery({
+    queryKey: ['permissions'],
+    queryFn: () => permissionService.list(),
   })
 }
 
@@ -66,5 +73,29 @@ export function useDeleteUser() {
       toast.success('User removed')
     },
     onError: () => toast.error('Failed to remove user'),
+  })
+}
+
+export function useCreateRole() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: roleService.create,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['roles'] })
+      toast.success('Role created')
+    },
+    onError: () => toast.error('Failed to create role'),
+  })
+}
+
+export function useCreatePermission() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: permissionService.create,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['permissions'] })
+      toast.success('Permission created')
+    },
+    onError: () => toast.error('Failed to create permission'),
   })
 }

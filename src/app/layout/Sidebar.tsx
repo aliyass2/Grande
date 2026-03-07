@@ -39,7 +39,7 @@ export function Sidebar() {
                 </p>
               )}
               {collapsed && <div className="mb-1 h-px bg-sidebar-border/50 mx-1" />}
-              <ul className="space-y-0.5">
+              <ul className={cn("space-y-0.5", collapsed && "flex flex-col items-center")}>
                 {group.items.map((item) => {
                   const Icon = item.icon
                   const link = (
@@ -52,7 +52,7 @@ export function Sidebar() {
                           isActive
                             ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
                             : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground',
-                          collapsed && 'justify-center px-0',
+                          collapsed && 'h-9 w-9 justify-center p-0',
                         )
                       }
                     >

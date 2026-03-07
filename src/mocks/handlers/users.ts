@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { MOCK_USERS, MOCK_ROLES, MOCK_AUDIT_LOGS } from '../data/users'
+import { MOCK_USERS, MOCK_ROLES, MOCK_PERMISSIONS, MOCK_AUDIT_LOGS } from '../data/users'
 
 const LAG = 300
 
@@ -84,6 +84,35 @@ export const userHandlers = [
     const role = MOCK_ROLES.find(r => r.id === params.id)
     if (!role) return new HttpResponse(null, { status: 404 })
     return HttpResponse.json(role)
+  }),
+
+  http.post('/api/roles', async ({ request }) => {
+    await delay(LAG)
+    const body = await request.json() as Partial<typeof MOCK_ROLES[0]>
+    const newRole = {
+      ...body,
+      id: `role_${Date.now()}`,
+      userCount: 0,
+      createdAt: new Date().toISOString(),
+    }
+    MOCK_ROLES.push(newRole as typeof MOCK_ROLES[0])
+    return HttpResponse.json(newRole, { status: 201 })
+  }),
+
+  http.get('/api/permissions', async () => {
+    await delay(LAG)
+    return HttpResponse.json(MOCK_PERMISSIONS)
+  }),
+
+  http.post('/api/permissions', async ({ request }) => {
+    await delay(LAG)
+    const body = await request.json() as Partial<typeof MOCK_PERMISSIONS[0]>
+    const newPerm = {
+      ...body,
+      id: `p_${Date.now()}`,
+    }
+    MOCK_PERMISSIONS.push(newPerm as typeof MOCK_PERMISSIONS[0])
+    return HttpResponse.json(newPerm, { status: 201 })
   }),
 
   http.get('/api/audit-logs', async ({ request }) => {

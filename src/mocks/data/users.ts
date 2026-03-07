@@ -48,6 +48,29 @@ MOCK_USERS[0] = {
   createdAt: daysAgo(720),
 }
 
+
+export const MOCK_PERMISSIONS: Permission[] = [
+  { id: 'p001', resource: 'users',     action: 'create', label: 'Create Users' },
+  { id: 'p002', resource: 'users',     action: 'read',   label: 'View Users' },
+  { id: 'p003', resource: 'users',     action: 'update', label: 'Edit Users' },
+  { id: 'p004', resource: 'users',     action: 'delete', label: 'Delete Users' },
+  { id: 'p005', resource: 'roles',     action: 'create', label: 'Create Roles' },
+  { id: 'p006', resource: 'roles',     action: 'read',   label: 'View Roles' },
+  { id: 'p007', resource: 'roles',     action: 'update', label: 'Edit Roles' },
+  { id: 'p008', resource: 'roles',     action: 'delete', label: 'Delete Roles' },
+  { id: 'p009', resource: 'inventory', action: 'create', label: 'Create Items' },
+  { id: 'p010', resource: 'inventory', action: 'read',   label: 'View Inventory' },
+  { id: 'p011', resource: 'inventory', action: 'update', label: 'Edit Items' },
+  { id: 'p012', resource: 'inventory', action: 'delete', label: 'Delete Items' },
+  { id: 'p013', resource: 'crm',       action: 'create', label: 'Create CRM Records' },
+  { id: 'p014', resource: 'crm',       action: 'read',   label: 'View CRM' },
+  { id: 'p015', resource: 'crm',       action: 'update', label: 'Edit CRM Records' },
+  { id: 'p016', resource: 'crm',       action: 'delete', label: 'Delete CRM Records' },
+  { id: 'p017', resource: 'reports',   action: 'create', label: 'Create Reports' },
+  { id: 'p018', resource: 'reports',   action: 'read',   label: 'View Reports' },
+  { id: 'p019', resource: 'reports',   action: 'update', label: 'Edit Reports' },
+  { id: 'p020', resource: 'reports',   action: 'delete', label: 'Delete Reports' },
+]
 export const MOCK_ROLES: Role[] = [
   {
     id: 'role_001',
