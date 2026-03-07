@@ -8,6 +8,10 @@ import type {
   DepartmentDataPoint,
   ReportDefinition,
   AnalyticsDashboardData,
+  RevenueVsTargetPoint,
+  InventoryHealthPoint,
+  PipelineStagePoint,
+  TopProduct,
 } from '@/features/analytics/types'
 
 // Generate 12 months of revenue data
@@ -26,6 +30,52 @@ function generateRevenueTrend(): TimeSeriesPoint[] {
 }
 
 export const REVENUE_TREND = generateRevenueTrend()
+
+function generateOrdersTrend(): TimeSeriesPoint[] {
+  let base = 2200
+  return Array.from({ length: 12 }, (_, i) => {
+    const monthsBack = 11 - i
+    const growth = 1 + (Math.random() * 0.1 - 0.03)
+    base = Math.round(base * growth)
+    return {
+      date: format(subMonths(new Date(), monthsBack), 'MMM yyyy'),
+      value: base,
+      label: format(subMonths(new Date(), monthsBack), 'MMM'),
+    }
+  })
+}
+
+export const ORDERS_TREND = generateOrdersTrend()
+
+export const REVENUE_VS_TARGET: RevenueVsTargetPoint[] = [
+  { label: 'Q1 2025', actual: 1_140_000, target: 1_200_000 },
+  { label: 'Q2 2025', actual: 1_380_000, target: 1_300_000 },
+  { label: 'Q3 2025', actual: 1_520_000, target: 1_450_000 },
+  { label: 'Q4 2025', actual: 1_690_000, target: 1_600_000 },
+]
+
+export const INVENTORY_HEALTH: InventoryHealthPoint[] = [
+  { status: 'In Stock', count: 312 },
+  { status: 'Low Stock', count: 58 },
+  { status: 'Out of Stock', count: 24 },
+  { status: 'On Order', count: 41 },
+]
+
+export const PIPELINE_BY_STAGE: PipelineStagePoint[] = [
+  { stage: 'Prospect', value: 2_840_000, deals: 94 },
+  { stage: 'Qualified', value: 1_920_000, deals: 61 },
+  { stage: 'Proposal', value: 1_150_000, deals: 38 },
+  { stage: 'Negotiation', value: 680_000, deals: 19 },
+  { stage: 'Closed Won', value: 420_000, deals: 12 },
+]
+
+export const TOP_PRODUCTS: TopProduct[] = [
+  { name: 'Industrial Servo Motor X4', sku: 'SKU-0041', revenue: 348_200, units: 214, growth: 12.4 },
+  { name: 'Precision Bearing Kit Pro', sku: 'SKU-0089', revenue: 291_500, units: 892, growth: 8.1 },
+  { name: 'Hydraulic Control Valve HV7', sku: 'SKU-0112', revenue: 264_800, units: 178, growth: -2.3 },
+  { name: 'Smart Sensor Array S3', sku: 'SKU-0057', revenue: 198_400, units: 341, growth: 22.7 },
+  { name: 'Pneumatic Actuator PA9', sku: 'SKU-0203', revenue: 173_100, units: 127, growth: 5.9 },
+]
 
 export const KPI_METRICS: KpiMetric[] = [
   {
@@ -88,6 +138,26 @@ export const KPI_METRICS: KpiMetric[] = [
     changePercent: 3.7,
     description: 'vs. last month',
   },
+  {
+    id: 'kpi_margin',
+    label: 'Gross Margin',
+    value: 42.6,
+    previousValue: 41.1,
+    unit: 'percent',
+    trend: 'up',
+    changePercent: 1.5,
+    description: 'vs. last month',
+  },
+  {
+    id: 'kpi_churn',
+    label: 'Churn Rate',
+    value: 1.8,
+    previousValue: 2.1,
+    unit: 'percent',
+    trend: 'up',
+    changePercent: -14.3,
+    description: 'vs. last month',
+  },
 ]
 
 export const SALES_BY_REGION: RegionDataPoint[] = [
@@ -110,8 +180,13 @@ export const DEPARTMENT_BREAKDOWN: DepartmentDataPoint[] = [
 export const DASHBOARD_DATA: AnalyticsDashboardData = {
   kpis: KPI_METRICS,
   revenueTrend: REVENUE_TREND,
+  ordersTrend: ORDERS_TREND,
   salesByRegion: SALES_BY_REGION,
   departmentBreakdown: DEPARTMENT_BREAKDOWN,
+  revenueVsTarget: REVENUE_VS_TARGET,
+  inventoryHealth: INVENTORY_HEALTH,
+  pipelineByStage: PIPELINE_BY_STAGE,
+  topProducts: TOP_PRODUCTS,
 }
 
 export const MOCK_REPORTS: ReportDefinition[] = [

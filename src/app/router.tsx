@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { AppLayout } from './layout/AppLayout'
+import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
+import LoginPage from '@/features/auth/LoginPage'
 
 function Loading() {
   return (
@@ -20,10 +22,14 @@ function lazy_(factory: () => Promise<{ default: React.ComponentType }>) {
 }
 
 export const router = createBrowserRouter([
+  { path: '/login', element: <LoginPage /> },
   {
     path: '/',
-    element: <AppLayout />,
+    element: <ProtectedRoute />,
     children: [
+      {
+        element: <AppLayout />,
+        children: [
       { index: true, element: <Navigate to="/analytics" replace /> },
       // Analytics
       { path: 'analytics', element: lazy_(() => import('@/features/analytics/pages/AnalyticsDashboardPage')) },
@@ -46,6 +52,8 @@ export const router = createBrowserRouter([
       { path: 'crm/companies', element: lazy_(() => import('@/features/crm/pages/CompaniesPage')) },
       { path: 'crm/pipeline', element: lazy_(() => import('@/features/crm/pages/PipelinePage')) },
       { path: 'crm/opportunities/:id', element: lazy_(() => import('@/features/crm/pages/OpportunityDetailPage')) },
+        ],
+      },
     ],
   },
 ])
