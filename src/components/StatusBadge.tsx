@@ -28,6 +28,29 @@ const STATUS_MAP: Record<string, StatusVariant> = {
   out: 'warning',
   transfer: 'info',
   adjustment: 'secondary',
+  // Finance statuses
+  draft: 'secondary',
+  sent: 'info',
+  paid: 'success',
+  overdue: 'destructive',
+  voided: 'secondary',
+  posted: 'success',
+  received: 'info',
+  approved: 'success',
+  submitted: 'warning',
+  rejected: 'destructive',
+  reimbursed: 'success',
+  // Sales Quote statuses
+  accepted: 'success',
+  expired: 'secondary',
+  converted: 'info',
+  // Sales Order statuses
+  pending: 'secondary',
+  confirmed: 'info',
+  processing: 'warning',
+  shipped: 'info',
+  delivered: 'success',
+  cancelled: 'destructive',
 }
 
 const STATUS_LABELS: Record<string, string> = {

@@ -58,6 +58,12 @@ export const router = createBrowserRouter([
       { path: 'crm/companies', element: lazy_(() => import('@/features/crm/pages/CompaniesPage')) },
       { path: 'crm/pipeline', element: lazy_(() => import('@/features/crm/pages/PipelinePage')) },
       { path: 'crm/opportunities/:id', element: lazy_(() => import('@/features/crm/pages/OpportunityDetailPage')) },
+      // Sales
+      { path: 'sales/quotes',       element: lazy_(() => import('@/features/sales/pages/QuotesPage')) },
+      { path: 'sales/quotes/:id',   element: lazy_(() => import('@/features/sales/pages/QuoteDetailPage')) },
+      { path: 'sales/orders',       element: lazy_(() => import('@/features/sales/pages/SalesOrdersPage')) },
+      { path: 'sales/orders/:id',   element: lazy_(() => import('@/features/sales/pages/OrderDetailPage')) },
+      { path: 'sales/pricing',      element: lazy_(() => import('@/features/sales/pages/PricingPage')) },
         ],
       },
     ],

@@ -14,6 +14,9 @@ import {
   Receipt,
   FileInput,
   Wallet,
+  FileCheck2,
+  ShoppingCart,
+  Tag,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -59,6 +62,14 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Invoices', href: '/finance/invoices',  icon: Receipt  },
       { label: 'Bills',    href: '/finance/bills',     icon: FileInput },
       { label: 'Expenses', href: '/finance/expenses',  icon: Wallet   },
+    ],
+  },
+  {
+    label: 'Sales',
+    items: [
+      { label: 'Quotes',  href: '/sales/quotes',  icon: FileCheck2    },
+      { label: 'Orders',  href: '/sales/orders',  icon: ShoppingCart  },
+      { label: 'Pricing', href: '/sales/pricing', icon: Tag           },
     ],
   },
   {
