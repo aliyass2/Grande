@@ -10,6 +10,10 @@ import {
   UserPlus,
   Building2,
   Kanban,
+  BookOpen,
+  Receipt,
+  FileInput,
+  Wallet,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -46,6 +50,15 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: 'Items', href: '/inventory/items', icon: Package },
       { label: 'Warehouses', href: '/inventory/warehouses', icon: Warehouse },
       { label: 'Movements', href: '/inventory/movements', icon: ArrowLeftRight },
+    ],
+  },
+  {
+    label: 'Finance',
+    items: [
+      { label: 'Ledger',   href: '/finance/ledger',   icon: BookOpen },
+      { label: 'Invoices', href: '/finance/invoices',  icon: Receipt  },
+      { label: 'Bills',    href: '/finance/bills',     icon: FileInput },
+      { label: 'Expenses', href: '/finance/expenses',  icon: Wallet   },
     ],
   },
   {

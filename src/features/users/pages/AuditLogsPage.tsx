@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import type { ColDef } from 'ag-grid-community'
-import { themeAlpine, colorSchemeDark } from 'ag-grid-community'
-import { useIsDark } from '@/lib/useTheme'
+import { agTheme } from '@/lib/agGridTheme'
 import { PageHeader } from '@/components/PageHeader'
 import { FilterBar } from '@/components/FilterBar'
 import { LoadingSkeleton } from '@/components/LoadingSkeleton'
@@ -15,7 +14,6 @@ import type { AuditLog } from '../types'
 const RESOURCES = ['user', 'role', 'inventory_item', 'lead', 'opportunity', 'report', 'settings']
 
 export default function AuditLogsPage() {
-  const isDark = useIsDark()
   const [search, setSearch] = useState('')
   const [resource, setResource] = useState('')
 
@@ -69,7 +67,7 @@ export default function AuditLogsPage() {
       />
       <div className="flex-1" style={{ minHeight: 400 }}>
         <AgGridReact
-          theme={isDark ? themeAlpine.withPart(colorSchemeDark) : themeAlpine}
+          theme={agTheme}
           rowData={data?.data ?? []}
           columnDefs={colDefs}
           defaultColDef={{ resizable: true, sortable: true, filter: true }}

@@ -45,6 +45,12 @@ export const router = createBrowserRouter([
       { path: 'inventory/items/:id', element: lazy_(() => import('@/features/inventory/pages/InventoryItemDetailPage')) },
       { path: 'inventory/warehouses', element: lazy_(() => import('@/features/inventory/pages/WarehousesPage')) },
       { path: 'inventory/movements', element: lazy_(() => import('@/features/inventory/pages/StockMovementsPage')) },
+      // Finance
+      { path: 'finance/ledger',   element: lazy_(() => import('@/features/finance/pages/LedgerPage')) },
+      { path: 'finance/invoices', element: lazy_(() => import('@/features/finance/pages/InvoicesPage')) },
+      { path: 'finance/invoices/:id', element: lazy_(() => import('@/features/finance/pages/InvoiceDetailPage')) },
+      { path: 'finance/bills',    element: lazy_(() => import('@/features/finance/pages/BillsPage')) },
+      { path: 'finance/expenses', element: lazy_(() => import('@/features/finance/pages/ExpensesPage')) },
       // CRM
       { path: 'crm/leads', element: lazy_(() => import('@/features/crm/pages/LeadsPage')) },
       { path: 'crm/contacts', element: lazy_(() => import('@/features/crm/pages/ContactsPage')) },
