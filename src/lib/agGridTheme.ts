@@ -8,7 +8,7 @@ export const agTheme = themeAlpine.withParams({
   backgroundColor:          'hsl(var(--background))',
   foregroundColor:          'hsl(var(--foreground))',
   headerBackgroundColor:    'hsl(var(--muted))',
-  headerForegroundColor:    'hsl(var(--muted-foreground))',
+  headerTextColor:          'hsl(var(--muted-foreground))',
   borderColor:              'hsl(var(--border))',
   rowHoverColor:            'hsl(var(--muted))',
   oddRowBackgroundColor:    'transparent',

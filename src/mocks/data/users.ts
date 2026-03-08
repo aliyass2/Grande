@@ -1,6 +1,6 @@
 import { pick, weightedPick, randomInt, fullName, email, generateId } from '../helpers/faker'
 import { daysAgo, hoursAgo, minutesAgo } from '../helpers/dates'
-import type { User, Role, AuditLog } from '@/features/users/types'
+import type { User, Role, AuditLog, Permission } from '@/features/users/types'
 
 const DEPARTMENTS = ['Engineering', 'Sales', 'Marketing', 'Finance', 'Operations', 'HR', 'Legal']
 const ROLES: User['role'][] = ['admin', 'manager', 'analyst', 'viewer']
