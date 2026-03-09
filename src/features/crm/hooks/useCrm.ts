@@ -53,7 +53,7 @@ export function useUpdateOpportunity() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof crmService.updateOpportunity>[1] }) =>
       crmService.updateOpportunity(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['crm-opportunities'] })
+      qc.invalidateQueries({ queryKey: ['crm-opportunities'], refetchType: 'all' })
       toast.success('Opportunity updated')
     },
     onError: () => toast.error('Failed to update opportunity'),
@@ -66,7 +66,7 @@ export function useUpdateLead() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof crmService.updateLead>[1] }) =>
       crmService.updateLead(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['crm-leads'] })
+      qc.invalidateQueries({ queryKey: ['crm-leads'], refetchType: 'all' })
       toast.success('Lead updated')
     },
     onError: () => toast.error('Failed to update lead'),

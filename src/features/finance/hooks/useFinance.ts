@@ -52,7 +52,7 @@ export function useUpdateInvoice() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof financeService.updateInvoice>[1] }) =>
       financeService.updateInvoice(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['finance-invoices'] })
+      qc.invalidateQueries({ queryKey: ['finance-invoices'], refetchType: 'all' })
       toast.success('Invoice updated')
     },
     onError: () => toast.error('Failed to update invoice'),
@@ -72,7 +72,7 @@ export function useUpdateBill() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof financeService.updateBill>[1] }) =>
       financeService.updateBill(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['finance-bills'] })
+      qc.invalidateQueries({ queryKey: ['finance-bills'], refetchType: 'all' })
       toast.success('Bill updated')
     },
     onError: () => toast.error('Failed to update bill'),
@@ -92,7 +92,7 @@ export function useUpdateExpense() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof financeService.updateExpense>[1] }) =>
       financeService.updateExpense(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['finance-expenses'] })
+      qc.invalidateQueries({ queryKey: ['finance-expenses'], refetchType: 'all' })
       toast.success('Expense updated')
     },
     onError: () => toast.error('Failed to update expense'),

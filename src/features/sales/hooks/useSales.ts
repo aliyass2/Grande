@@ -24,7 +24,7 @@ export function useUpdateQuote() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof salesService.updateQuote>[1] }) =>
       salesService.updateQuote(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sales-quotes'] })
+      qc.invalidateQueries({ queryKey: ['sales-quotes'], refetchType: 'all' })
       toast.success('Quote updated')
     },
     onError: () => toast.error('Failed to update quote'),
@@ -52,7 +52,7 @@ export function useUpdateSalesOrder() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof salesService.updateOrder>[1] }) =>
       salesService.updateOrder(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sales-orders'] })
+      qc.invalidateQueries({ queryKey: ['sales-orders'], refetchType: 'all' })
       toast.success('Order updated')
     },
     onError: () => toast.error('Failed to update order'),
@@ -72,7 +72,7 @@ export function useUpdatePricingRule() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof salesService.updatePricingRule>[1] }) =>
       salesService.updatePricingRule(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sales-pricing-rules'] })
+      qc.invalidateQueries({ queryKey: ['sales-pricing-rules'], refetchType: 'all' })
       toast.success('Pricing rule updated')
     },
     onError: () => toast.error('Failed to update pricing rule'),

@@ -38,7 +38,7 @@ export function useUpdateInventoryItem() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof inventoryService.updateItem>[1] }) =>
       inventoryService.updateItem(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['inventory-items'] })
+      qc.invalidateQueries({ queryKey: ['inventory-items'], refetchType: 'all' })
       toast.success('Item updated')
     },
     onError: () => toast.error('Failed to update item'),

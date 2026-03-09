@@ -44,7 +44,7 @@ export function useCreateUser() {
   return useMutation({
     mutationFn: userService.create,
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['users'] })
+      qc.invalidateQueries({ queryKey: ['users'], refetchType: 'all' })
       toast.success('User created successfully')
     },
     onError: () => toast.error('Failed to create user'),
@@ -57,7 +57,7 @@ export function useUpdateUser() {
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof userService.update>[1] }) =>
       userService.update(id, data),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['users'] })
+      qc.invalidateQueries({ queryKey: ['users'], refetchType: 'all' })
       toast.success('User updated')
     },
     onError: () => toast.error('Failed to update user'),
@@ -69,7 +69,7 @@ export function useDeleteUser() {
   return useMutation({
     mutationFn: userService.remove,
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['users'] })
+      qc.invalidateQueries({ queryKey: ['users'], refetchType: 'all' })
       toast.success('User removed')
     },
     onError: () => toast.error('Failed to remove user'),
@@ -81,7 +81,7 @@ export function useCreateRole() {
   return useMutation({
     mutationFn: roleService.create,
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['roles'] })
+      qc.invalidateQueries({ queryKey: ['roles'], refetchType: 'all' })
       toast.success('Role created')
     },
     onError: () => toast.error('Failed to create role'),
@@ -93,7 +93,7 @@ export function useCreatePermission() {
   return useMutation({
     mutationFn: permissionService.create,
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['permissions'] })
+      qc.invalidateQueries({ queryKey: ['permissions'], refetchType: 'all' })
       toast.success('Permission created')
     },
     onError: () => toast.error('Failed to create permission'),
