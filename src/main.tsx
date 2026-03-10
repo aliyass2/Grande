@@ -10,9 +10,12 @@ async function enableMocking() {
   if (import.meta.env.VITE_MOCKAPI_URL) return
   const { worker } = await import('./mocks/browser')
   return worker.start({
-    onUnhandledRequest: 'bypass',
+    onUnhandledRequest: import.meta.env.DEV ? 'warn' : 'bypass',
     serviceWorker: {
       url: '/mockServiceWorker.js',
+      options: {
+        updateViaCache: 'none',
+      },
     },
   })
 }
