@@ -1,4 +1,4 @@
-import { Moon, Sun, Bell } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/features/auth/AuthProvider'
+import { useNavigate } from 'react-router-dom'
+import { NotificationPanel } from '@/features/notifications/NotificationPanel'
 
 interface TopbarProps {
   theme: 'light' | 'dark'
@@ -17,7 +19,8 @@ interface TopbarProps {
 }
 
 export function Topbar({ theme, onToggleTheme }: TopbarProps) {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
   const initials = user.name
     .split(' ')
     .map((n) => n[0])
@@ -41,9 +44,7 @@ export function Topbar({ theme, onToggleTheme }: TopbarProps) {
           {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
 
-        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Notifications">
-          <Bell className="h-4 w-4" />
-        </Button>
+        <NotificationPanel />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -66,8 +67,11 @@ export function Topbar({ theme, onToggleTheme }: TopbarProps) {
               Role: <span className="ml-1 font-medium">{user.role}</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-xs text-muted-foreground">
-              Sign out (mock)
+            <DropdownMenuItem
+              className="text-xs text-destructive focus:text-destructive"
+              onClick={() => { logout(); navigate('/login') }}
+            >
+              Sign out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
